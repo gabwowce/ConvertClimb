@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { View, Animated, Platform, ViewStyle, StyleSheet } from "react-native";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { Ionicons } from "@expo/vector-icons";
-
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 type Props = {
   name: keyof typeof Ionicons.glyphMap;
   size: number;
@@ -14,13 +14,13 @@ export default function MaskedIcon({ name, size, blueH, fullH }: Props) {
   const ref = useRef<View>(null);
   const offset = useRef(new Animated.Value(0)).current;
 
-  const platformOffset = Platform.OS === "ios" ? 20 : -2;
+  const insets = useSafeAreaInsets();
 
   /* pamatuojam absoliučią piktogramos poziciją */
   useEffect(() => {
     const measure = () =>
       ref.current?.measureInWindow((x, y, w, h) => {
-        offset.setValue(fullH - (y + h) + platformOffset);
+        offset.setValue(fullH - (y + h) - insets.bottom + 5);
       });
     const t = setTimeout(measure, 0);
     return () => clearTimeout(t);

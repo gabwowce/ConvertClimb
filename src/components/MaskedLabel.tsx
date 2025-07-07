@@ -8,7 +8,7 @@ import {
   ViewStyle,
 } from "react-native";
 import MaskedView from "@react-native-masked-view/masked-view";
-
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 type Props = {
   txt: string;
   blueH: Animated.Animated;
@@ -19,12 +19,11 @@ export default function MaskedLabel({ txt, blueH, fullH }: Props) {
   const ref = useRef<View>(null);
   const offset = useRef(new Animated.Value(0)).current;
   const [textH, setTextH] = useState(0);
-  const platformOffset = Platform.OS === "ios" ? 20 : -6;
-
+  const insets = useSafeAreaInsets();
   useEffect(() => {
     const measure = () =>
       ref.current?.measureInWindow((x, y, w, h) => {
-        offset.setValue(fullH - (y + h) + platformOffset);
+        offset.setValue(fullH - (y + h) - insets.bottom + 2);
         setTextH(h);
       });
     const t = setTimeout(measure, 0);
@@ -34,7 +33,7 @@ export default function MaskedLabel({ txt, blueH, fullH }: Props) {
   const translateY = Animated.subtract(offset, blueH);
 
   return (
-    <View ref={ref} style={{ position: "relative" }}>
+    <View ref={ref} style={styles.stack}>
       <Text style={styles.blue}>{txt}</Text>
       <MaskedView
         pointerEvents="none"
@@ -45,10 +44,9 @@ export default function MaskedLabel({ txt, blueH, fullH }: Props) {
               styles.maskRect,
               {
                 top: translateY,
-                bottom: 0,
+                height: blueH as unknown as number | string,
               } as Animated.WithAnimatedValue<ViewStyle>,
             ]}
-            pointerEvents="none"
           />
         }
       >
@@ -59,6 +57,7 @@ export default function MaskedLabel({ txt, blueH, fullH }: Props) {
 }
 
 const styles = StyleSheet.create({
+  stack: { position: "relative" },
   blue: {
     fontSize: 16,
     color: "#1A18BA",

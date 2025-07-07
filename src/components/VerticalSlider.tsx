@@ -1,5 +1,4 @@
-// components/VerticalSlider.tsx
-import React, { useRef, useState, useCallback, useMemo } from "react";
+import React, { useRef, useState, useMemo, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -17,9 +16,9 @@ import {
 } from "./config/sliderConfig";
 
 type Props = {
-  anim: Animated.Value; // bendras Animated.Value (0–1)
+  anim: Animated.Value; // reikšmė nuo 0 (apačia) iki 1 (viršus)
   onChange?: (pct: number) => void;
-  onLayoutHeight: (h: number) => void; // pranešam aukštį į HomeScreen
+  onLayoutHeight: (h: number) => void;
 };
 
 export default function VerticalSlider({
@@ -27,15 +26,15 @@ export default function VerticalSlider({
   onChange,
   onLayoutHeight,
 }: Props) {
+  const [fullHeight, setFullHeight] = useState(0);
   const start = useRef(0);
 
-  /* aukštį gaunam iš tėvo per onLayout */
-  const usableHRef = useRef(1); // ref tam, kad panResponder visuomet turėtų naujausią
+  const usableH = Math.max(fullHeight - TOP_PAD - BOTTOM_PAD, 1);
 
   const onLayout = (e: LayoutChangeEvent) => {
     const fullH = e.nativeEvent.layout.height;
+    setFullHeight(fullH);
     onLayoutHeight(fullH);
-    usableHRef.current = Math.max(fullH - TOP_PAD - BOTTOM_PAD, 1);
   };
 
   const snap = (raw: number) => Math.round(raw / STEP_PCT) * STEP_PCT;
@@ -48,7 +47,6 @@ export default function VerticalSlider({
           start.current = (anim as any).__getValue();
         },
         onPanResponderMove: (_, g) => {
-          const usableH = usableHRef.current;
           const raw = start.current - (g.dy * SENS) / usableH;
           const clamped = Math.max(0, Math.min(raw, 1));
           anim.setValue(clamped);
@@ -65,14 +63,15 @@ export default function VerticalSlider({
           onChange?.(1 - sn);
         },
       }),
-    [anim]
+    [anim, usableH]
   );
 
-  /* vizualai – mėlyna ir thumb (naudojame tėvo aukštį) */
-  const blueH = Animated.add(
-    Animated.multiply(anim, usableHRef.current),
-    BOTTOM_PAD
-  );
+  // ⬇️ Skaičiuojam blueH su interpolate — reaguoja į fullHeight
+  const blueH = anim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [BOTTOM_PAD, fullHeight - TOP_PAD],
+  });
+
   const thumbBottom = Animated.subtract(blueH, R);
 
   return (
@@ -106,7 +105,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     elevation: 3,
     shadowColor: "#000",
-    shadowOpacity: 0.25,
+
     shadowRadius: 3,
   },
 });

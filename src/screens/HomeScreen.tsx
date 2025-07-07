@@ -26,15 +26,22 @@ export default function HomeScreen() {
   // Mėlyno sluoksnio aukštis (Animated.Value)
   const blueH = Animated.add(Animated.multiply(anim, usableH), BOTTOM_PAD);
 
+  blueH.addListener(({ value }) => {
+    console.log("🔢 gradeIdx:", gradeIdx);
+    console.log("🎚️ anim:", anim);
+    console.log("📏 usableH:", usableH);
+    console.log("🔵 blueH (computed):", blueH);
+    console.log("🔵 fullH:", fullH);
+  });
   return (
-    <SafeAreaView style={[s.container, { paddingHorizontal: padX }]}>
+    <SafeAreaView
+      style={[s.container, { paddingHorizontal: padX }]}
+      onLayout={(e) => setFullH(e.nativeEvent.layout.height)}
+    >
       <BackgroundLines />
 
       {/* SLIDERIS */}
-      <View
-        style={StyleSheet.absoluteFill}
-        onLayout={(e) => setFullH(e.nativeEvent.layout.height)}
-      >
+      <View style={StyleSheet.absoluteFill}>
         <VerticalSlider
           anim={anim}
           onChange={(p) => setGradeIdx(Math.round(p * (GRADES.length - 1)))}
