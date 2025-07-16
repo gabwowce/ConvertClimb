@@ -8,23 +8,36 @@ type Props = {
   visible: boolean;
   onSelect: (sys: string) => void;
   onClose: () => void;
+  exclude?: string[];
 };
 
-export default function SystemPicker({ visible, onSelect, onClose }: Props) {
+export default function SystemPicker({
+  visible,
+  onSelect,
+  onClose,
+  exclude = [],
+}: Props) {
+  const availableSystems = SYSTEMS.filter((s) => !exclude.includes(s.label));
   return (
     <FullScreenModal visible={visible} onClose={onClose}>
-      <BackgroundLines />
-      <Text style={styles.title}>Choose grading system</Text>
-
-      {SYSTEMS.map((s) => (
-        <Pressable
-          key={s.key}
-          style={styles.row}
-          onPress={() => onSelect(s.label)}
+      <Pressable style={{ flex: 1 }} onPress={onClose}>
+        <BackgroundLines />
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          <Text style={styles.txt}>{s.label}</Text>
-        </Pressable>
-      ))}
+          <Text style={styles.title}>Choose grading system</Text>
+
+          {availableSystems.map((s) => (
+            <Pressable
+              key={s.key}
+              style={styles.row}
+              onPress={() => onSelect(s.label)}
+            >
+              <Text style={styles.txt}>{s.label}</Text>
+            </Pressable>
+          ))}
+        </View>
+      </Pressable>
     </FullScreenModal>
   );
 }

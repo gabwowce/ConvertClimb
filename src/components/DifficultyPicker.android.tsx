@@ -1,10 +1,18 @@
 import React from "react";
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+} from "react-native";
 import FullScreenModal from "./FullScreenModal";
 import { GRADES } from "../data/grades";
 import { valueFor } from "../hooks/useGradeValue";
 import { useHorizontalPad } from "../hooks/useHorizontalPad";
 import BackgroundLines from "./BackgroundLines";
+import { useApp } from "../context/AppContext";
 
 type Props = {
   visible: boolean;
@@ -21,22 +29,36 @@ export default function DifficultyPicker({
 }: Props) {
   const padX = useHorizontalPad(); // ← tas pats hook’as
 
-  return (
-    <FullScreenModal
-      visible={visible}
-      onClose={onClose}
-      contentStyle={{ paddingHorizontal: padX }}
-    >
-      <BackgroundLines />
-      <Text style={s.title}>Choose difficulty ({system})</Text>
+  const { setGradeAndSyncAnim } = useApp();
 
-      <View style={s.grid}>
-        {GRADES.map((g) => (
-          <Pressable key={g.idx} style={s.cell} onPress={() => onSelect(g.idx)}>
-            <Text style={s.txt}>{valueFor(system, g)}</Text>
+  return (
+    <FullScreenModal visible={visible} onClose={onClose}>
+      <Pressable style={{ flex: 1 }} onPress={onClose}>
+        <BackgroundLines />
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Pressable onPress={() => {}} style={{ alignSelf: "center" }}>
+            <Text style={s.title}>Choose difficulty ({system})</Text>
+            <View style={s.grid}>
+              {[...GRADES]
+                .sort((a, b) => b.idx - a.idx)
+                .map((g) => (
+                  <Pressable
+                    key={g.idx}
+                    style={s.cell}
+                    onPress={() => {
+                      setGradeAndSyncAnim(g.idx);
+                      onClose();
+                    }}
+                  >
+                    <Text style={s.txt}>{valueFor(system, g)}</Text>
+                  </Pressable>
+                ))}
+            </View>
           </Pressable>
-        ))}
-      </View>
+        </View>
+      </Pressable>
     </FullScreenModal>
   );
 }

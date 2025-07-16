@@ -20,11 +20,11 @@ export default function MaskedIcon({ name, size, blueH, fullH }: Props) {
   useEffect(() => {
     const measure = () =>
       ref.current?.measureInWindow((x, y, w, h) => {
-        offset.setValue(fullH - (y + h) - insets.bottom + 5);
+        offset.setValue(fullH - (y + h) - insets.bottom + insets.bottom + 18);
       });
     const t = setTimeout(measure, 0);
     return () => clearTimeout(t);
-  }, [fullH]);
+  }, [blueH]);
 
   const translateY = Animated.subtract(offset, blueH);
 

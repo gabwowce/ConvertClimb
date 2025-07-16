@@ -1,5 +1,5 @@
 export const STEPS = 33;
-export const THUMB = 60;
+export const THUMB = 53;
 export const R = THUMB / 2;
 export const SENS = 0.5; // 0.5 = 2× lėčiau
 export const TOP_PAD = 80;

@@ -9,11 +9,14 @@ import {
 } from "react-native";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { normalize } from "../normalizeFont";
 type Props = {
   txt: string;
   blueH: Animated.Animated;
   fullH: number;
 };
+
+const FONT = normalize(16);
 
 export default function MaskedLabel({ txt, blueH, fullH }: Props) {
   const ref = useRef<View>(null);
@@ -23,18 +26,20 @@ export default function MaskedLabel({ txt, blueH, fullH }: Props) {
   useEffect(() => {
     const measure = () =>
       ref.current?.measureInWindow((x, y, w, h) => {
-        offset.setValue(fullH - (y + h) - insets.bottom + 2);
+        offset.setValue(fullH - (y + h) + insets.bottom - 15);
         setTextH(h);
       });
     const t = setTimeout(measure, 0);
     return () => clearTimeout(t);
-  }, [txt, fullH]);
+  }, [txt, blueH]);
 
   const translateY = Animated.subtract(offset, blueH);
 
   return (
-    <View ref={ref} style={styles.stack}>
-      <Text style={styles.blue}>{txt}</Text>
+    <View style={styles.stack}>
+      <Text ref={ref} style={styles.blue}>
+        {txt}
+      </Text>
       <MaskedView
         pointerEvents="none"
         style={StyleSheet.absoluteFill}
@@ -59,12 +64,12 @@ export default function MaskedLabel({ txt, blueH, fullH }: Props) {
 const styles = StyleSheet.create({
   stack: { position: "relative" },
   blue: {
-    fontSize: 16,
+    fontSize: FONT,
     color: "#1A18BA",
     fontFamily: "Coolvetica",
   },
   white: {
-    fontSize: 16,
+    fontSize: FONT,
     color: "#fff",
     fontFamily: "Coolvetica",
   },

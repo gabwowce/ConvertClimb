@@ -3,9 +3,9 @@ import { View, Text, Pressable, StyleSheet, Animated } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Grade } from "../data/grades";
 import { valueFor } from "../hooks/useGradeValue";
-import MaskedText from "./MaskedText";
-import MaskedLabel from "./MaskedLabel";
-import MaskedIcon from "./MaskedIcon";
+import MaskedText from "./masks/MaskedText";
+import MaskedLabel from "./masks/MaskedLabel";
+import MaskedIcon from "./masks/MaskedIcon";
 
 type Props = {
   grade: Grade;
