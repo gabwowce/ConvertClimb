@@ -86,7 +86,7 @@ export default function MaskedText({
             fontSize: DEFAULT_FONT,
             fontFamily: "CoolveticaBold",
             color,
-            marginTop: 0,
+            marginTop: -8,
             marginRight: 4,
           },
           style,
@@ -127,7 +127,7 @@ export default function MaskedText({
 }
 
 const styles = StyleSheet.create({
-  stack: { position: "relative", alignSelf: "flex-start" },
+  stack: { position: "relative", alignSelf: "flex-end" },
   maskRect: {
     position: "absolute",
     left: 0,

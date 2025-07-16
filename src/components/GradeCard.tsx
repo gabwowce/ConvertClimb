@@ -44,7 +44,7 @@ export default function GradeCard({
             />
 
             <MaskedText
-              icon={{ name: "chevron-down-outline", size: 20 }}
+              icon={{ name: "chevron-down-outline", size: 18 }}
               blueH={blueH}
               fullH={fullH}
             />
@@ -70,11 +70,14 @@ export default function GradeCard({
               text={bottomLabel}
               blueH={blueH}
               fullH={fullH}
-              style={{ fontSize: 16, fontFamily: "Coolvetica" }} // per propsus
+              style={{
+                fontSize: 16,
+                fontFamily: "Coolvetica",
+              }} // per propsus
             />
 
             <MaskedText
-              icon={{ name: "chevron-down-outline", size: 20 }}
+              icon={{ name: "chevron-down-outline", size: 18 }}
               blueH={blueH}
               fullH={fullH}
             />
@@ -92,10 +95,17 @@ export default function GradeCard({
 }
 
 const s = StyleSheet.create({
-  card: { alignItems: "flex-end", gap: "10%" },
+  card: {
+    alignItems: "flex-end",
+    justifyContent: "center",
+    gap: "25%",
+  },
   block: { alignItems: "flex-end" },
 
   label: { fontSize: 16, color: "#1A18BA", fontFamily: "Coolvetica" },
 
-  row: { flexDirection: "row", alignItems: "center", gap: 4 },
+  row: {
+    flexDirection: "row",
+    gap: 4,
+  },
 });
