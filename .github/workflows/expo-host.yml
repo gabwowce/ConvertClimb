@@ -8,8 +8,7 @@ jobs:
   update:
     runs-on: ubuntu-latest
     env:
-      CI: 1                # neinteraktyvu
-      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      CI: 1
 
     steps:
       - uses: actions/checkout@v4
@@ -20,10 +19,9 @@ jobs:
 
       - run: npm ci
 
-      - name: Expo & EAS login
+      - name: Auth + EAS Update
         uses: expo/expo-github-action@v8
         with:
           token: ${{ secrets.EXPO_TOKEN }}
-
-      - name: Publish update to "preview" branch
-        run: npx eas update --branch preview --auto --non-interactive
+          eas-version: latest
+          eas-command: update --branch preview --auto --non-interactive
