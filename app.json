@@ -35,6 +35,12 @@
           ]
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ea70aeec-6e63-4cd7-819a-32fecaa444b4"
+      }
+    },
+    "owner": "gabwowce"
   }
 }
