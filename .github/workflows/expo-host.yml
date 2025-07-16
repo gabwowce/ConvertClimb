@@ -1,20 +1,30 @@
-name: Expo Publish (automatic)
+name: Expo Preview
 
 on:
   push:
-    branches: [feature/rtk-query-refactor]
-  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-      - uses: expo/expo-github-action@v8
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          token: ${{ secrets.EXPO_TOKEN }}
+          node-version: 18
 
-      - run: npm ci
-      - run: expo publish --non-interactive
+      - name: Install dependencies
+        run: npm install
+
+      - name: Authenticate with Expo
+        uses: expo/expo-github-action@v8
+        with:
+          expo-token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Publish to Expo
+        run: npx expo publish --non-interactive
