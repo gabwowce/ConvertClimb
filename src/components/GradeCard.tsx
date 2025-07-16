@@ -3,7 +3,7 @@ import { View, Text, Pressable, StyleSheet, Animated } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Grade } from "../data/grades";
 import { valueFor } from "../hooks/useGradeValue";
-import MaskedText from "./masks/MaskedText";
+import MaskedText from "./MaskedText";
 import MaskedLabel from "./masks/MaskedLabel";
 import MaskedIcon from "./masks/MaskedIcon";
 
@@ -35,10 +35,16 @@ export default function GradeCard({
         <Pressable onPress={onPickTop}>
           <View style={s.row}>
             {/* <Text style={s.label}>{topLabel}</Text> */}
-            <MaskedLabel txt={topLabel} blueH={blueH} fullH={fullH} />
-            <MaskedIcon
-              name="chevron-down-outline"
-              size={20}
+
+            <MaskedText
+              text={topLabel}
+              blueH={blueH}
+              fullH={fullH}
+              style={{ fontSize: 16, fontFamily: "Coolvetica" }} // per propsus
+            />
+
+            <MaskedText
+              icon={{ name: "chevron-down-outline", size: 20 }}
               blueH={blueH}
               fullH={fullH}
             />
@@ -47,7 +53,7 @@ export default function GradeCard({
 
         <Pressable onPress={onPressDifficulty}>
           <MaskedText
-            txt={valueFor(topLabel, grade).toString()}
+            text={valueFor(topLabel, grade).toString()}
             blueH={blueH}
             fullH={fullH}
           />
@@ -59,11 +65,16 @@ export default function GradeCard({
         <Pressable onPress={onPickBottom}>
           <View style={s.row}>
             {/* <Text style={s.label}>{bottomLabel}</Text> */}
-            <MaskedLabel txt={bottomLabel} blueH={blueH} fullH={fullH} />
 
-            <MaskedIcon
-              name="chevron-down-outline"
-              size={20}
+            <MaskedText
+              text={bottomLabel}
+              blueH={blueH}
+              fullH={fullH}
+              style={{ fontSize: 16, fontFamily: "Coolvetica" }} // per propsus
+            />
+
+            <MaskedText
+              icon={{ name: "chevron-down-outline", size: 20 }}
               blueH={blueH}
               fullH={fullH}
             />
@@ -71,7 +82,7 @@ export default function GradeCard({
         </Pressable>
 
         <MaskedText
-          txt={valueFor(bottomLabel, grade).toString()}
+          text={valueFor(bottomLabel, grade).toString()}
           blueH={blueH}
           fullH={fullH}
         />

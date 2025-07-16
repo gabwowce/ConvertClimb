@@ -49,8 +49,7 @@ export default function HomeScreen() {
   const [fullH, setFullH] = useState(0);
   const usableH = Math.max(windowHeight - TOP_PAD - BOTTOM_PAD, 1);
   const blueH = Animated.add(Animated.multiply(anim, usableH), BOTTOM_PAD);
-  console.log("insets.bottom", insets.bottom);
-  console.log("blueH", blueH);
+
   /* --- UI --- */
   const padX = useHorizontalPad();
   const grade = React.useMemo(

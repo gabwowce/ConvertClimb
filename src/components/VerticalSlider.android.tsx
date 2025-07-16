@@ -71,7 +71,7 @@ export default function VerticalSlider({ onChange, onLayoutHeight }: Props) {
           const raw = start.current - (g.dy * SENS) / usableH; // ↓ didina anim
           const clamped = Math.max(0, Math.min(raw, 1));
           anim.setValue(clamped);
-          // onChange?.(clamped);
+          //onChange?.(clamped);
           const idx = Math.round((1 - clamped) * (GRADES.length - 1));
           if (idx !== lastIdx.current) {
             setGradeAndSyncAnim(idx); // animated = false
