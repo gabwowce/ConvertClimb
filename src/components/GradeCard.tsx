@@ -81,7 +81,7 @@ export default function GradeCard({
 }
 
 const s = StyleSheet.create({
-  card: { alignItems: "flex-end", gap: "20%" },
+  card: { alignItems: "flex-end", gap: "10%" },
   block: { alignItems: "flex-end" },
 
   label: { fontSize: 16, color: "#1A18BA", fontFamily: "Coolvetica" },

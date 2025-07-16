@@ -1,8 +1,9 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { View, Animated, Platform, ViewStyle, StyleSheet } from "react-native";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useMask } from "../../context/MaskContext";
 type Props = {
   name: keyof typeof Ionicons.glyphMap;
   size: number;
@@ -11,9 +12,10 @@ type Props = {
 };
 
 export default function MaskedIcon({ name, size, blueH, fullH }: Props) {
+  const { blueY } = useMask();
   const ref = useRef<View>(null);
   const offset = useRef(new Animated.Value(0)).current;
-
+  const [textY, setTextY] = useState(0);
   const insets = useSafeAreaInsets();
 
   /* pamatuojam absoliučią piktogramos poziciją */
@@ -21,13 +23,14 @@ export default function MaskedIcon({ name, size, blueH, fullH }: Props) {
     const measure = () =>
       ref.current?.measureInWindow((x, y, w, h) => {
         offset.setValue(fullH - (y + h) - insets.bottom + insets.bottom - 3);
+        setTextY(y);
       });
     const t = setTimeout(measure, 0);
     return () => clearTimeout(t);
   }, [blueH]);
 
-  const translateY = Animated.subtract(offset, blueH);
-
+  //const translateY = Animated.subtract(offset, blueH);
+  const translateY = Animated.subtract(blueY, textY);
   return (
     <View ref={ref} style={styles.stack}>
       {/* Mėlyna piktograma (fonas) */}

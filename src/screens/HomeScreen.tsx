@@ -5,8 +5,12 @@ import {
   Animated,
   TouchableWithoutFeedback,
   View as RNView,
+  Dimensions,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 import BackgroundLines from "../components/BackgroundLines";
 import VerticalSlider from "../components/VerticalSlider";
@@ -40,10 +44,13 @@ export default function HomeScreen() {
   // ).current;
 
   /* --- matmenys & padėtys --- */
+  const insets = useSafeAreaInsets();
+  const windowHeight = Dimensions.get("window").height;
   const [fullH, setFullH] = useState(0);
-  const usableH = Math.max(fullH - TOP_PAD - BOTTOM_PAD, 1);
+  const usableH = Math.max(windowHeight - TOP_PAD - BOTTOM_PAD, 1);
   const blueH = Animated.add(Animated.multiply(anim, usableH), BOTTOM_PAD);
-
+  console.log("insets.bottom", insets.bottom);
+  console.log("blueH", blueH);
   /* --- UI --- */
   const padX = useHorizontalPad();
   const grade = React.useMemo(

@@ -5,6 +5,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context"; // ← pridė
 import { AppProvider } from "./src/context/AppContext";
 import HomeScreen from "./src/screens/HomeScreen";
 import { useGlobalFonts } from "./src/hooks/useGlobalFonts";
+import { MaskProvider } from "./src/context/MaskContext";
 
 export default function App() {
   const fontsLoaded = useGlobalFonts();
@@ -13,8 +14,10 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <AppProvider>
-        <StatusBar style="auto" />
-        <HomeScreen />
+        <MaskProvider>
+          <StatusBar style="auto" />
+          <HomeScreen />
+        </MaskProvider>
       </AppProvider>
     </SafeAreaProvider>
   );

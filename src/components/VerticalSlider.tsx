@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useRef, useState, useMemo, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -20,6 +20,7 @@ import {
 } from "./config/sliderConfig";
 import { useApp } from "../context/AppContext";
 import { GRADES } from "../data/grades";
+import { useMask } from "../context/MaskContext";
 
 type Props = {
   onChange?: (pct: number) => void;
@@ -27,15 +28,27 @@ type Props = {
 };
 
 export default function VerticalSlider({ onChange, onLayoutHeight }: Props) {
+  const ref = useRef<View>(null);
+  const { setGradeAndSyncAnim, stepUp, stepDown, anim, gradeIdx, setGradeIdx } =
+    useApp();
+  const { fullH, blueY: _, blueTop: __, blueH: ___ } = useMask(); // ištraukiam reikalingus dalykus
+  const { setBlueY } = useMask(); // <-- šita reikia pridėti prie context
+
   const [fullHeight, setFullHeight] = useState(0);
   const start = useRef(0);
-  const { setGradeAndSyncAnim, gradeIdx, stepUp, stepDown, anim } = useApp();
-    const start = useRef(0);
   const lastIdx = useRef<number>(gradeIdx);
- const { setGradeAndSyncAnim, stepUp, stepDown, anim } = useApp();
-
   const usableH = Math.max(fullHeight - TOP_PAD - BOTTOM_PAD, 1);
 
+  useEffect(() => {
+    const measure = () =>
+      ref.current?.measureInWindow((x, y) => {
+        setBlueY(y); // <-- šita funkcija ateina iš context
+      });
+
+    measure();
+    const id = anim.addListener(measure);
+    return () => anim.removeListener(id);
+  }, [anim]);
   /* --- išmatavimai --- */
   const onLayout = (e: LayoutChangeEvent) => {
     const h = e.nativeEvent.layout.height;
@@ -59,6 +72,12 @@ export default function VerticalSlider({ onChange, onLayoutHeight }: Props) {
           const clamped = Math.max(0, Math.min(raw, 1));
           anim.setValue(clamped);
           // onChange?.(clamped);
+          const idx = Math.round((1 - clamped) * (GRADES.length - 1));
+          if (idx !== lastIdx.current) {
+            setGradeAndSyncAnim(idx); // animated = false
+            setGradeIdx(idx);
+            lastIdx.current = idx;
+          }
         },
         onPanResponderRelease: () => {
           const raw = (anim as any).__getValue();
@@ -69,6 +88,8 @@ export default function VerticalSlider({ onChange, onLayoutHeight }: Props) {
             useNativeDriver: false,
           }).start();
           onChange?.(sn);
+          const idx = Math.round((1 - sn) * (GRADES.length - 1));
+          setGradeAndSyncAnim(idx, true); // animated = true
         },
       }),
     [anim, usableH]
@@ -91,7 +112,7 @@ export default function VerticalSlider({ onChange, onLayoutHeight }: Props) {
 
       {/* Mėlyna apačia (aukštis reaguoja į anim) */}
       <TouchableWithoutFeedback onPress={stepDown}>
-        <Animated.View style={[styles.blue, { height: blueH }]} />
+        <Animated.View ref={ref} style={[styles.blue, { height: blueH }]} />
       </TouchableWithoutFeedback>
 
       {/* Rankenėlė */}
