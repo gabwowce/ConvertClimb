@@ -1,0 +1,32 @@
+name: Expo EAS Update
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:      # kad galėtum paleisti rankiniu būdu
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      CI: 1               # slopina visus interaktyvius klausimus
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - run: npm ci
+
+      # 1) autentifikuojamės ir įdiegiame eas-cli
+      - name: Authenticate with Expo
+        uses: expo/expo-github-action@v8
+        with:
+          token: ${{ secrets.EXPO_TOKEN }}
+          eas-version: latest          # ← prideda `eas` į $PATH
+
+      # 2) atliekame patį Update į „preview“ šaką
+      - name: Publish update to preview
+        run: eas update --branch preview --auto --non-interactive
