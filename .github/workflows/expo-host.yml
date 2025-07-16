@@ -8,7 +8,7 @@ jobs:
   update:
     runs-on: ubuntu-latest
     env:
-      CI: 1
+      CI: 1                      # išjungia interaktyvius klausimus
 
     steps:
       - uses: actions/checkout@v4
@@ -19,9 +19,11 @@ jobs:
 
       - run: npm ci
 
-      - name: Auth + EAS Update
+      - name: Authenticate with Expo
         uses: expo/expo-github-action@v8
         with:
           token: ${{ secrets.EXPO_TOKEN }}
-          eas-version: latest
-          eas-command: update --branch preview --auto --non-interactive
+          eas-version: latest     # ← įdiegs eas-cli
+
+      - name: Publish update to „preview“ šaką
+        run: npx eas update --branch preview --auto --non-interactive
