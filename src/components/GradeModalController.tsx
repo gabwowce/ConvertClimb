@@ -32,6 +32,15 @@ export default function GradeModalController() {
         }}
         onClose={closeModal}
       />
+      <DifficultyPicker
+        visible={modal === "gradeBottom"}
+        system={bottomSystem} // ← čia įdedam!
+        onSelect={(i: number) => {
+          setGradeAndSyncAnim(i, true);
+          closeModal();
+        }}
+        onClose={closeModal}
+      />
       <SystemPicker
         visible={modal === "top"}
         exclude={[bottomSystem]}

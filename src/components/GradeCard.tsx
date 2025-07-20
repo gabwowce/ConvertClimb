@@ -14,7 +14,8 @@ type Props = {
   blueH: Animated.Animated; // tas pats Animated.add(...)
   onPickTop: () => void;
   onPickBottom: () => void;
-  onPressDifficulty: () => void;
+  onPressTopDifficulty: () => void;
+  onPressBottomDifficulty: () => void;
   fullH: number;
 };
 
@@ -25,8 +26,8 @@ export default function GradeCard({
   blueH,
   onPickTop,
   onPickBottom,
-  onPressDifficulty,
-  fullH,
+  onPressTopDifficulty,
+  onPressBottomDifficulty,
 }: Props) {
   return (
     <View style={s.card}>
@@ -39,23 +40,20 @@ export default function GradeCard({
             <MaskedText
               text={topLabel}
               blueH={blueH}
-              fullH={fullH}
               style={{ fontSize: 16, fontFamily: "Coolvetica" }} // per propsus
             />
 
             <MaskedText
               icon={{ name: "chevron-down-outline", size: 18 }}
               blueH={blueH}
-              fullH={fullH}
             />
           </View>
         </Pressable>
 
-        <Pressable onPress={onPressDifficulty}>
+        <Pressable onPress={onPressTopDifficulty}>
           <MaskedText
             text={valueFor(topLabel, grade).toString()}
             blueH={blueH}
-            fullH={fullH}
           />
         </Pressable>
       </View>
@@ -69,7 +67,6 @@ export default function GradeCard({
             <MaskedText
               text={bottomLabel}
               blueH={blueH}
-              fullH={fullH}
               style={{
                 fontSize: 16,
                 fontFamily: "Coolvetica",
@@ -79,16 +76,16 @@ export default function GradeCard({
             <MaskedText
               icon={{ name: "chevron-down-outline", size: 18 }}
               blueH={blueH}
-              fullH={fullH}
             />
           </View>
         </Pressable>
 
-        <MaskedText
-          text={valueFor(bottomLabel, grade).toString()}
-          blueH={blueH}
-          fullH={fullH}
-        />
+        <Pressable onPress={onPressBottomDifficulty}>
+          <MaskedText
+            text={valueFor(bottomLabel, grade).toString()}
+            blueH={blueH}
+          />
+        </Pressable>
       </View>
     </View>
   );

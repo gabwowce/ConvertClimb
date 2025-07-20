@@ -103,7 +103,8 @@ export default function HomeScreen() {
         fullH={fullH}
         onPickTop={() => openModal("top")}
         onPickBottom={() => openModal("bottom")}
-        onPressDifficulty={() => openModal("grade")}
+        onPressTopDifficulty={() => openModal("grade")}
+        onPressBottomDifficulty={() => openModal("gradeBottom")}
       />
     </SafeAreaView>
   );

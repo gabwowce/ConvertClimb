@@ -19,7 +19,7 @@ import { GRADES } from "../data/grades";
  */
 
 // —— types ————————————————————————————————————————————————————————
-export type ModalType = "grade" | "top" | "bottom" | null;
+export type ModalType = "grade" | "top" | "bottom" | "gradeBottom" | null;
 
 export interface GradeCtx {
   gradeIdx: number;
