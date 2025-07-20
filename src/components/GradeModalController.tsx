@@ -31,6 +31,7 @@ export default function GradeModalController() {
           closeModal();
         }}
         onClose={closeModal}
+        selectedIdx={gradeIdx}
       />
       <DifficultyPicker
         visible={modal === "gradeBottom"}
@@ -40,6 +41,7 @@ export default function GradeModalController() {
           closeModal();
         }}
         onClose={closeModal}
+        selectedIdx={gradeIdx}
       />
       <SystemPicker
         visible={modal === "top"}
