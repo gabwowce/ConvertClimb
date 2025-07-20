@@ -20,23 +20,31 @@ export default function DifficultyPicker({
   onClose,
 }: Props) {
   const padX = useHorizontalPad(); // ← tas pats hook’as
+  const cellWidth = system === "Polish" ? 90 : 60;
 
   return (
-    <FullScreenModal
-      visible={visible}
-      onClose={onClose}
-      contentStyle={{ paddingHorizontal: padX }}
-    >
+    <FullScreenModal visible={visible} onClose={onClose}>
       <BackgroundLines />
-      <Text style={s.title}>Choose difficulty ({system})</Text>
+      <Pressable
+        style={{ flex: 1, justifyContent: "center" }}
+        onPress={onClose}
+      >
+        <View style={{ paddingHorizontal: padX }}>
+          <Text style={s.title}>Choose difficulty ({system})</Text>
 
-      <View style={s.grid}>
-        {GRADES.map((g) => (
-          <Pressable key={g.idx} style={s.cell} onPress={() => onSelect(g.idx)}>
-            <Text style={s.txt}>{valueFor(system, g)}</Text>
-          </Pressable>
-        ))}
-      </View>
+          <View style={s.grid}>
+            {GRADES.filter((g) => valueFor(system, g) !== "-").map((g) => (
+              <Pressable
+                key={g.idx}
+                style={[s.cell, { width: cellWidth }]}
+                onPress={() => onSelect(g.idx)}
+              >
+                <Text style={s.txt}>{valueFor(system, g)}</Text>
+              </Pressable>
+            ))}
+          </View>
+        </View>
+      </Pressable>
     </FullScreenModal>
   );
 }
@@ -60,7 +68,6 @@ const s = StyleSheet.create({
     justifyContent: "flex-start",
   },
   cell: {
-    width: 60,
     height: 50,
     alignItems: "center",
     justifyContent: "center",

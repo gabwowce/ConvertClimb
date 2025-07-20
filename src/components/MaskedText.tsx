@@ -86,7 +86,7 @@ export default function MaskedText({
             fontSize: DEFAULT_FONT,
             fontFamily: "CoolveticaBold",
             color,
-            marginTop: -8,
+            marginTop: 0,
             marginRight: 4,
           },
           style,

@@ -64,7 +64,7 @@ const s = StyleSheet.create({
     backgroundColor: "#fff",
     paddingTop: 24,
     paddingBottom: 40,
-    paddingHorizontal: 20,
+    paddingHorizontal: 0,
     justifyContent: "center",
   },
   contentContainerStyle: {

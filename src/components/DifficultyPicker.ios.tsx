@@ -21,6 +21,7 @@ export default function DifficultyPicker({
 }: Props) {
   const padX = useHorizontalPad(); // ← tas pats hook’as
   const { setGradeAndSyncAnim } = useApp();
+  const cellWidth = system === "Polish" ? 90 : 60;
   return (
     <FullScreenModal visible={visible} onClose={onClose}>
       <Pressable style={{ flex: 1 }} onPress={onClose}>
@@ -37,7 +38,7 @@ export default function DifficultyPicker({
                 .map((g) => (
                   <Pressable
                     key={g.idx}
-                    style={s.cell}
+                    style={[s.cell, { width: cellWidth }]}
                     onPress={() => {
                       setGradeAndSyncAnim(g.idx);
                       onClose();
@@ -73,7 +74,7 @@ const s = StyleSheet.create({
     justifyContent: "flex-start",
   },
   cell: {
-    width: 60,
+    width: 90,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
