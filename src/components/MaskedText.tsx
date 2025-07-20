@@ -1,10 +1,7 @@
-// components/masks/MaskedText.tsx   (UNIVERSALI VERSIJA)
-
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Animated,
-  ViewStyle,
   StyleSheet,
   Dimensions,
   Text,
@@ -15,48 +12,28 @@ import { useMask } from "../context/MaskContext";
 import { Ionicons } from "@expo/vector-icons";
 import { normalize } from "./normalizeFont";
 
-const DEFAULT_FONT = normalize(64);
-const BASE_COLOR = "#1A18BA";
-const MASKED_COLOR = "#fff";
-
-type IconProps = {
-  name: string;
-  size?: number;
-  color?: string; // jei nori individualios spalvos
-};
-
-type Props = {
-  /** Jei paduodi textą – bus atvaizduotas tekstas */
-  text?: string;
-  /** Jei paduodi ikoną – bus atvaizduota ikona */
-  icon?: IconProps;
-  /** Kaukei reikalingas aukštis (paduodi tą patį, kurį skaičiuoji animacijoje) */
-  blueH: Animated.Animated;
-  /** Viso ekrano (ar naudotino) aukštis – liko logikai */
-  fullH: number;
-  /** Papildomas stilius tekstui / ikonai (baseline sluoksniui) */
-  style?: TextStyle;
-  /** Pagrindinė (baseline) spalva, numatyta – mėlyna */
-  baseColor?: string;
-  /** Spalva po kauke, numatyta – balta */
-  maskedColor?: string;
-};
+const BASE = "#1A18BA";
+const MASK = "#fff";
+const F = normalize(64);
 
 export default function MaskedText({
   text,
   icon,
   blueH,
-  fullH,
   style,
-  baseColor = BASE_COLOR,
-  maskedColor = MASKED_COLOR,
-}: Props) {
-  const { blueY } = useMask();
-
-  /* ---------------------- matavimas absoliučiai Y koordinacijai ---------------------- */
+  baseColor = BASE,
+  maskedColor = MASK,
+}: {
+  text?: string;
+  icon?: { name: string; size?: number };
+  blueH: Animated.Animated;
+  style?: TextStyle;
+  baseColor?: string;
+  maskedColor?: string;
+}) {
+  const { blueY } = useMask(); // Animated.Value
   const ref = useRef<View>(null);
   const [yPos, setYPos] = useState(0);
-  const windowHeight = Dimensions.get("window").height;
 
   useEffect(() => {
     const measure = () =>
@@ -67,71 +44,41 @@ export default function MaskedText({
     const t = setTimeout(measure, 0);
     return () => clearTimeout(t);
   }, [text, icon, blueH]);
-
-  /* ---------------------- animacija ---------------------- */
   const translateY = Animated.subtract(blueY, yPos);
 
-  /* ---------------------- elementas, kurį kaukėsime ---------------------- */
-  const renderContent = (color: string) => {
-    if (icon) {
-      const { name, size = 20 } = icon;
-      return <Ionicons name={name} size={size} color={color} />;
-    }
-
-    // tekstas kaip numatytasis variantas
-    return (
+  const render = (c: string) =>
+    icon ? (
+      <Ionicons name={icon.name} size={icon.size ?? 20} color={c} />
+    ) : (
       <Text
-        style={[
-          {
-            fontSize: DEFAULT_FONT,
-            fontFamily: "CoolveticaBold",
-            color,
-            marginTop: 0,
-            marginRight: 4,
-          },
-          style,
-        ]}
+        style={[{ color: c, fontSize: F, fontFamily: "CoolveticaBold" }, style]}
       >
         {text}
       </Text>
     );
-  };
 
   return (
-    <View style={styles.stack}>
-      {/* Baseline sluoksnis – mėlynas (ar kitos baseColor) */}
+    <View style={s.stack}>
       <View ref={ref} collapsable={false}>
-        {renderContent(baseColor)}
+        {render(baseColor)}
       </View>
 
-      {/* Kaukuotas sluoksnis – baltas (ar maskedColor) */}
       <MaskedView
-        pointerEvents="none"
         style={StyleSheet.absoluteFill}
+        pointerEvents="none"
         maskElement={
           <Animated.View
-            style={[
-              styles.maskRect,
-              {
-                top: translateY,
-                height: blueH as unknown as number | string,
-              } as Animated.WithAnimatedValue<ViewStyle>,
-            ]}
+            style={[s.mask, { top: translateY, height: blueH as any }]}
           />
         }
       >
-        {renderContent(maskedColor)}
+        {render(maskedColor)}
       </MaskedView>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
+const s = StyleSheet.create({
   stack: { position: "relative", alignSelf: "flex-end" },
-  maskRect: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    backgroundColor: "black",
-  },
+  mask: { position: "absolute", left: 0, right: 0, backgroundColor: "black" },
 });

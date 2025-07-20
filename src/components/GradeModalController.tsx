@@ -14,10 +14,11 @@ export default function GradeModalController() {
     topSystem,
     bottomSystem,
     gradeIdx,
+    setGradeAndSyncAnim,
   } = useApp(); // ← pasiimam topSystem
 
   useEffect(() => {
-    setGradeRef(setGradeIdx, () => gradeIdx);
+    setGradeRef(setGradeAndSyncAnim, () => gradeIdx);
   }, [gradeIdx]);
 
   return (
@@ -26,7 +27,7 @@ export default function GradeModalController() {
         visible={modal === "grade"}
         system={topSystem} // ← čia įdedam!
         onSelect={(i: number) => {
-          setGradeIdx(i);
+          setGradeAndSyncAnim(i, true);
           closeModal();
         }}
         onClose={closeModal}

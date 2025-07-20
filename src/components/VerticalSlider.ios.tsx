@@ -54,8 +54,15 @@ export default function VerticalSlider({ onChange, onLayoutHeight }: Props) {
     const h = e.nativeEvent.layout.height;
     setFullHeight(h);
     onLayoutHeight(h);
+    ref.current?.measureInWindow((_x, y) => setBlueY(y));
   };
 
+  useEffect(() => {
+    const id = anim.addListener(() =>
+      ref.current?.measureInWindow((_x, y) => setBlueY(y))
+    );
+    return () => anim.removeListener(id);
+  }, [anim, setBlueY]);
   /* --- apvaliname iki artimiausio žingsnio --- */
   const snap = (raw: number) => Math.round(raw / STEP_PCT) * STEP_PCT;
 
