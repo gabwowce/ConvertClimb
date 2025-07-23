@@ -127,9 +127,19 @@ export default function VerticalSlider({ onChange, onLayoutHeight }: Props) {
         {...pan.panHandlers}
         style={[styles.thumb, { bottom: thumbBottom }]}
       >
-        <Ionicons name="chevron-up-outline" size={18} color="#000" />
+        <Ionicons
+          name="chevron-up-outline"
+          size={30}
+          color="#000"
+          style={{ marginBottom: -2 }}
+        />
         <View style={styles.line} />
-        <Ionicons name="chevron-down-outline" size={18} color="#000" />
+        <Ionicons
+          name="chevron-down-outline"
+          size={30}
+          color="#000"
+          style={{ marginTop: -2 }}
+        />
       </Animated.View>
     </View>
   );
@@ -158,7 +168,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   line: {
-    width: 23,
+    width: 32,
     height: 2,
     backgroundColor: "#F2F2F2",
   },
