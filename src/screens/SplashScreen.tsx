@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { StyleSheet, StatusBar, View } from "react-native";
 import LottieView from "lottie-react-native";
-
+import pvz from "../../assets/animation/pvz.json";
 interface Props {
   onFinish: () => void;
 }
@@ -12,7 +12,7 @@ export default function SplashScreen({ onFinish }: Props) {
       <StatusBar hidden />
 
       <LottieView
-        source={require("../../assets/animation/climpv6_2s.json")}
+        source={pvz}
         autoPlay
         loop={false}
         resizeMode="cover" // ⬅️ svarbu: „cover“
