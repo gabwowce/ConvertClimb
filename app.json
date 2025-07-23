@@ -4,12 +4,12 @@
     "slug": "ConvertClimb",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/iconv2.png",
+    "icon": "./assets/blank.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "cover",
+      "image": "./assets/blank.png",
+      "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
@@ -17,7 +17,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/blank.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
@@ -33,6 +33,16 @@
           "fonts": [
             "./assets/fonts/coolvetica_rg.ttf"
           ]
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#ffffff",
+          "image": "./assets/blank.png",
+          "resizeMode": "contain",
+          "android": { "image": "./assets/blank.png" },
+          "ios":     { "image": "./assets/blank.png" }
         }
       ]
     ],
