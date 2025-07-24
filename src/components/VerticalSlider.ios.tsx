@@ -129,14 +129,14 @@ export default function VerticalSlider({ onChange, onLayoutHeight }: Props) {
       >
         <Ionicons
           name="chevron-up-outline"
-          size={30}
+          size={25}
           color="#000"
           style={{ marginBottom: -2 }}
         />
         <View style={styles.line} />
         <Ionicons
           name="chevron-down-outline"
-          size={30}
+          size={25}
           color="#000"
           style={{ marginTop: -2 }}
         />

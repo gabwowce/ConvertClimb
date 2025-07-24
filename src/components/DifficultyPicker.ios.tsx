@@ -13,6 +13,8 @@ import { valueFor } from "../hooks/useGradeValue";
 import { useHorizontalPad } from "../hooks/useHorizontalPad";
 import BackgroundLines from "./BackgroundLines";
 import { useApp } from "../context/AppContext";
+import { TITLE, TXT } from "./config/textSize";
+import { getLetterSpacing } from "../helpers/getLetterSpacing";
 
 /**
  * A full, self‑contained picker for climbing grade difficulty.
@@ -137,8 +139,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 50,
     fontFamily: "CoolveticaBold",
-    fontSize: 28,
-    lineHeight: 34,
+    fontSize: TITLE,
+    letterSpacing: getLetterSpacing(TITLE),
   },
   grid: {
     flexDirection: "row",
@@ -159,7 +161,8 @@ const styles = StyleSheet.create({
   },
   txt: {
     color: "#1A18BA",
-    fontSize: 20,
+    fontSize: TXT,
+    letterSpacing: getLetterSpacing(TITLE),
     fontFamily: "Coolvetica",
   },
   txtSelected: {

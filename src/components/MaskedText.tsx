@@ -11,6 +11,7 @@ import MaskedView from "@react-native-masked-view/masked-view";
 import { useMask } from "../context/MaskContext";
 import { Ionicons } from "@expo/vector-icons";
 import { normalize } from "./normalizeFont";
+import { getLetterSpacing } from "../helpers/getLetterSpacing";
 
 const BASE = "#1A18BA";
 const MASK = "#fff";
@@ -51,7 +52,15 @@ export default function MaskedText({
       <Ionicons name={icon.name} size={icon.size ?? 20} color={c} />
     ) : (
       <Text
-        style={[{ color: c, fontSize: F, fontFamily: "CoolveticaBold" }, style]}
+        style={[
+          {
+            color: c,
+            fontSize: F,
+            letterSpacing: getLetterSpacing(F),
+            fontFamily: "CoolveticaBold",
+          },
+          style,
+        ]}
       >
         {text}
       </Text>

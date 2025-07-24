@@ -5,7 +5,8 @@ import { GRADES } from "../data/grades";
 import { valueFor } from "../hooks/useGradeValue";
 import { useHorizontalPad } from "../hooks/useHorizontalPad";
 import BackgroundLines from "./BackgroundLines";
-
+import { TITLE, TXT } from "./config/textSize";
+import { getLetterSpacing } from "../helpers/getLetterSpacing";
 /**
  * DifficultyPicker
  * Shows a grid of grade values for a chosen grading *system* (e.g. "Polish").
@@ -109,8 +110,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 50,
     fontFamily: "CoolveticaBold",
-    fontSize: 28,
-    lineHeight: 34,
+    fontSize: TITLE,
+    letterSpacing: getLetterSpacing(TITLE),
   },
   grid: {
     flexDirection: "row",
@@ -124,7 +125,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   txt: {
-    fontSize: 20,
+    fontSize: TXT,
+    letterSpacing: getLetterSpacing(TITLE),
     fontFamily: "Coolvetica",
   },
 });

@@ -4,8 +4,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { Grade } from "../data/grades";
 import { valueFor } from "../hooks/useGradeValue";
 import MaskedText from "./MaskedText";
-import MaskedLabel from "./masks/MaskedLabel";
-import MaskedIcon from "./masks/MaskedIcon";
+
+import { TXTSM } from "./config/textSize";
+import { getLetterSpacing } from "../helpers/getLetterSpacing";
 
 type Props = {
   grade: Grade;
@@ -40,7 +41,11 @@ export default function GradeCard({
             <MaskedText
               text={topLabel}
               blueH={blueH}
-              style={{ fontSize: 16, fontFamily: "Coolvetica" }} // per propsus
+              style={{
+                fontSize: TXTSM,
+                letterSpacing: getLetterSpacing(TXTSM),
+                fontFamily: "Coolvetica",
+              }} // per propsus
             />
 
             <MaskedText
@@ -68,7 +73,8 @@ export default function GradeCard({
               text={bottomLabel}
               blueH={blueH}
               style={{
-                fontSize: 16,
+                fontSize: TXTSM,
+                letterSpacing: getLetterSpacing(TXTSM),
                 fontFamily: "Coolvetica",
               }} // per propsus
             />
@@ -99,7 +105,12 @@ const s = StyleSheet.create({
   },
   block: { alignItems: "flex-end" },
 
-  label: { fontSize: 16, color: "#1A18BA", fontFamily: "Coolvetica" },
+  label: {
+    fontSize: TXTSM,
+    letterSpacing: getLetterSpacing(TXTSM),
+    color: "#1A18BA",
+    fontFamily: "Coolvetica",
+  },
 
   row: {
     flexDirection: "row",

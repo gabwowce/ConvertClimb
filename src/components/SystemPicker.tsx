@@ -3,6 +3,8 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 import FullScreenModal from "./FullScreenModal";
 import { SYSTEMS } from "../data/systems";
 import BackgroundLines from "./BackgroundLines";
+import { TITLE, TXT } from "./config/textSize";
+import { getLetterSpacing } from "../helpers/getLetterSpacing";
 
 type Props = {
   visible: boolean;
@@ -48,12 +50,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 60,
     fontFamily: "CoolveticaBold",
-    fontSize: 28,
-    lineHeight: 34,
+    fontSize: TITLE,
+    letterSpacing: getLetterSpacing(TITLE),
   },
   row: { paddingVertical: 8, alignItems: "center" },
   txt: {
-    fontSize: 20,
+    fontSize: TXT,
+    letterSpacing: getLetterSpacing(TITLE),
     color: "#1A18BA",
     fontFamily: "CoolveticaBold",
     height: 48,

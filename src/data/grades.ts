@@ -22,7 +22,7 @@ export const GRADES: Grade[] = [
   {
     idx: 32,
     fr: "2",
-    yds: "5,1",
+    yds: "5.1",
     uiaa: "II",
     ewbank: 8,
     pl: "II",
@@ -32,7 +32,7 @@ export const GRADES: Grade[] = [
   {
     idx: 31,
     fr: "3",
-    yds: "5,2",
+    yds: "5.2",
     uiaa: "III",
     ewbank: 9,
     pl: "III",
@@ -42,7 +42,7 @@ export const GRADES: Grade[] = [
   {
     idx: 30,
     fr: "4a",
-    yds: "5,3",
+    yds: "5.3",
     uiaa: "IV",
     ewbank: 10,
     pl: "III+",
@@ -52,7 +52,7 @@ export const GRADES: Grade[] = [
   {
     idx: 29,
     fr: "4b",
-    yds: "5,4",
+    yds: "5.4",
     uiaa: "IV+",
     ewbank: 11,
     pl: "IV",
@@ -62,7 +62,7 @@ export const GRADES: Grade[] = [
   {
     idx: 28,
     fr: "4c",
-    yds: "5,5",
+    yds: "5.5",
     uiaa: "V-",
     ewbank: 12,
     pl: "IV+",
@@ -72,7 +72,7 @@ export const GRADES: Grade[] = [
   {
     idx: 27,
     fr: "5a",
-    yds: "5,6",
+    yds: "5.6",
     uiaa: "V",
     ewbank: 13,
     pl: "V",
@@ -82,7 +82,7 @@ export const GRADES: Grade[] = [
   {
     idx: 26,
     fr: "5a+",
-    yds: "5,7",
+    yds: "5.7",
     uiaa: "V+",
     ewbank: 14,
     pl: "V-",
@@ -92,7 +92,7 @@ export const GRADES: Grade[] = [
   {
     idx: 25,
     fr: "5b",
-    yds: "5,8",
+    yds: "5.8",
     uiaa: "V+",
     ewbank: 15,
     pl: "V",
@@ -102,7 +102,7 @@ export const GRADES: Grade[] = [
   {
     idx: 24,
     fr: "5c",
-    yds: "5,9",
+    yds: "5.9",
     uiaa: "VI-",
     ewbank: 16,
     pl: "V+",
