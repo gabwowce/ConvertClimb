@@ -1,28 +1,18 @@
 import React from "react";
-import { View, Text, Pressable, StyleSheet, Dimensions } from "react-native";
-import FullScreenModal from "./FullScreenModal";
+import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 import { GRADES } from "../data/grades";
+import { getLetterSpacing } from "../helpers/getLetterSpacing";
 import { valueFor } from "../hooks/useGradeValue";
 import { useHorizontalPad } from "../hooks/useHorizontalPad";
 import BackgroundLines from "./BackgroundLines";
 import { TITLE, TXT } from "./config/textSize";
-import { getLetterSpacing } from "../helpers/getLetterSpacing";
-/**
- * DifficultyPicker
- * Shows a grid of grade values for a chosen grading *system* (e.g. "Polish").
- * The cell representing the currently *selectedIdx* is highlighted in blue.
- */
+import FullScreenModal from "./FullScreenModal";
 
 type Props = {
-  /** Whether the modal is visible */
   visible: boolean;
-  /** Grading system identifier (e.g. "Polish", "French") */
   system: string;
-  /** Currently selected grade index – highlighted in blue */
   selectedIdx: number;
-  /** Callback fired when a grade is chosen */
   onSelect: (idx: number) => void;
-  /** Callback to close the modal */
   onClose: () => void;
 };
 
@@ -35,16 +25,13 @@ export default function DifficultyPicker({
 }: Props) {
   const padX = useHorizontalPad();
 
-  // 1️⃣  How many columns do we want?
   const COLS = system === "Polish" ? 4 : 5;
 
-  // 2️⃣  How much horizontal space is available?
-  const GAP = 0; // px between cells
+  const GAP = 0;
   const screenW = Dimensions.get("window").width;
   const innerW = screenW - padX * 2; // usable width
   const cellWidth = Math.floor((innerW - GAP * (COLS - 1)) / COLS);
 
-  // 3️⃣  Grid width so the block sits centred
   const gridW = COLS * cellWidth + (COLS - 1) * GAP;
 
   return (
@@ -69,7 +56,6 @@ export default function DifficultyPicker({
                       width: cellWidth,
                       marginRight: GAP,
                       marginBottom: GAP,
-                      // backgroundColor: isSelected ? "#1A18BA" : "transparent",
                     },
                   ]}
                   onPress={() => onSelect(g.idx)}

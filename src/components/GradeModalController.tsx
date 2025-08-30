@@ -1,21 +1,20 @@
 import React, { useEffect } from "react";
-import DifficultyPicker from "./DifficultyPicker";
-import SystemPicker from "./SystemPicker";
 import { useApp } from "../context/AppContext";
+import DifficultyPicker from "./DifficultyPicker";
 import { setGradeRef } from "./sliderController";
+import SystemPicker from "./SystemPicker";
 
 export default function GradeModalController() {
   const {
     modal,
     closeModal,
-    setGradeIdx,
     setTopSystem,
     setBottomSystem,
     topSystem,
     bottomSystem,
     gradeIdx,
     setGradeAndSyncAnim,
-  } = useApp(); // ← pasiimam topSystem
+  } = useApp();
 
   useEffect(() => {
     setGradeRef(setGradeAndSyncAnim, () => gradeIdx);
@@ -25,7 +24,7 @@ export default function GradeModalController() {
     <>
       <DifficultyPicker
         visible={modal === "grade"}
-        system={topSystem} // ← čia įdedam!
+        system={topSystem}
         onSelect={(i: number) => {
           setGradeAndSyncAnim(i, true);
           closeModal();
@@ -35,7 +34,7 @@ export default function GradeModalController() {
       />
       <DifficultyPicker
         visible={modal === "gradeBottom"}
-        system={bottomSystem} // ← čia įdedam!
+        system={bottomSystem}
         onSelect={(i: number) => {
           setGradeAndSyncAnim(i, true);
           closeModal();

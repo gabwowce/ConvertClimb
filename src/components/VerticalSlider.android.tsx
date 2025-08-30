@@ -1,26 +1,25 @@
-import React, { useRef, useState, useMemo, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  Animated,
-  PanResponder,
-  LayoutChangeEvent,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
-  THUMB,
+  Animated,
+  LayoutChangeEvent,
+  PanResponder,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
+
+import { useApp } from "../context/AppContext";
+import { useMask } from "../context/MaskContext";
+import { GRADES } from "../data/grades";
+import {
+  BOTTOM_PAD,
   R,
   SENS,
   STEP_PCT,
+  THUMB,
   TOP_PAD,
-  BOTTOM_PAD,
 } from "./config/sliderConfig";
-import { useApp } from "../context/AppContext";
-import { GRADES } from "../data/grades";
-import { useMask } from "../context/MaskContext";
 
 type Props = {
   onChange?: (pct: number) => void;
@@ -31,8 +30,8 @@ export default function VerticalSlider({ onChange, onLayoutHeight }: Props) {
   const ref = useRef<View>(null);
   const { setGradeAndSyncAnim, stepUp, stepDown, anim, gradeIdx, setGradeIdx } =
     useApp();
-  const { fullH, blueY: _, blueTop: __, blueH: ___ } = useMask(); // ištraukiam reikalingus dalykus
-  const { setBlueY } = useMask(); // <-- šita reikia pridėti prie context
+  const { fullH, blueY: _, blueTop: __, blueH: ___ } = useMask();
+  const { setBlueY } = useMask();
 
   const [fullHeight, setFullHeight] = useState(0);
   const start = useRef(0);
@@ -42,7 +41,7 @@ export default function VerticalSlider({ onChange, onLayoutHeight }: Props) {
   useEffect(() => {
     const measure = () =>
       ref.current?.measureInWindow((x, y) => {
-        setBlueY(y); // <-- šita funkcija ateina iš context
+        setBlueY(y);
       });
 
     measure();
@@ -68,13 +67,13 @@ export default function VerticalSlider({ onChange, onLayoutHeight }: Props) {
           start.current = (anim as any).__getValue();
         },
         onPanResponderMove: (_, g) => {
-          const raw = start.current - (g.dy * SENS) / usableH; // ↓ didina anim
+          const raw = start.current - (g.dy * SENS) / usableH;
           const clamped = Math.max(0, Math.min(raw, 1));
           anim.setValue(clamped);
           //onChange?.(clamped);
           const idx = Math.round((1 - clamped) * (GRADES.length - 1));
           if (idx !== lastIdx.current) {
-            setGradeAndSyncAnim(idx); // animated = false
+            setGradeAndSyncAnim(idx);
             setGradeIdx(idx);
             lastIdx.current = idx;
           }
@@ -89,20 +88,18 @@ export default function VerticalSlider({ onChange, onLayoutHeight }: Props) {
           }).start();
           onChange?.(sn);
           const idx = Math.round((1 - sn) * (GRADES.length - 1));
-          setGradeAndSyncAnim(idx, true); // animated = true
+          setGradeAndSyncAnim(idx, true);
         },
       }),
     [anim, usableH]
   );
 
-  /* --- vizualinė geometrija --- */
   const blueH = anim.interpolate({
     inputRange: [0, 1],
     outputRange: [BOTTOM_PAD, fullHeight - TOP_PAD],
   });
   const thumbBottom = Animated.subtract(blueH, R);
 
-  /* --- JSX --- */
   return (
     <View style={styles.layer} onLayout={onLayout} pointerEvents="box-none">
       {/* Balta sritis (viršuje): –1 žingsnis */}
@@ -128,7 +125,6 @@ export default function VerticalSlider({ onChange, onLayoutHeight }: Props) {
   );
 }
 
-/* --- stiliai --- */
 const styles = StyleSheet.create({
   layer: { ...StyleSheet.absoluteFillObject },
   blue: {

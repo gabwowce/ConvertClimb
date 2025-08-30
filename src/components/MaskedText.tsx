@@ -1,17 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  View,
-  Animated,
-  StyleSheet,
-  Dimensions,
-  Text,
-  TextStyle,
-} from "react-native";
-import MaskedView from "@react-native-masked-view/masked-view";
-import { useMask } from "../context/MaskContext";
 import { Ionicons } from "@expo/vector-icons";
-import { normalize } from "./normalizeFont";
+import MaskedView from "@react-native-masked-view/masked-view";
+import React, { useEffect, useRef, useState } from "react";
+import { Animated, StyleSheet, Text, TextStyle, View } from "react-native";
+import { useMask } from "../context/MaskContext";
 import { getLetterSpacing } from "../helpers/getLetterSpacing";
+import { normalize } from "./normalizeFont";
 
 const BASE = "#1A18BA";
 const MASK = "#fff";
@@ -32,7 +25,7 @@ export default function MaskedText({
   baseColor?: string;
   maskedColor?: string;
 }) {
-  const { blueY } = useMask(); // Animated.Value
+  const { blueY } = useMask();
   const ref = useRef<View>(null);
   const [yPos, setYPos] = useState(0);
 
@@ -67,7 +60,7 @@ export default function MaskedText({
     );
 
   return (
-    <View style={s.stack}>
+    <View style={styles.stack}>
       <View ref={ref} collapsable={false}>
         {render(baseColor)}
       </View>
@@ -77,7 +70,7 @@ export default function MaskedText({
         pointerEvents="none"
         maskElement={
           <Animated.View
-            style={[s.mask, { top: translateY, height: blueH as any }]}
+            style={[styles.mask, { top: translateY, height: blueH as any }]}
           />
         }
       >
@@ -87,7 +80,7 @@ export default function MaskedText({
   );
 }
 
-const s = StyleSheet.create({
+const styles = StyleSheet.create({
   stack: { position: "relative", alignSelf: "flex-end" },
   mask: { position: "absolute", left: 0, right: 0, backgroundColor: "black" },
 });

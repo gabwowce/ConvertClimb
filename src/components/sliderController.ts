@@ -27,7 +27,7 @@ export const decrease = () => {
   _setGradeIdx(next);
 
   Animated.timing(_animRef, {
-    toValue: next * STEP_PCT, // ← kryptis taisyta čia
+    toValue: next * STEP_PCT,
     duration: 140,
     useNativeDriver: false,
   }).start();
@@ -41,7 +41,7 @@ export const increase = () => {
   _setGradeIdx(next);
 
   Animated.timing(_animRef, {
-    toValue: next * STEP_PCT, // ← ir čia
+    toValue: next * STEP_PCT,
     duration: 140,
     useNativeDriver: false,
   }).start();

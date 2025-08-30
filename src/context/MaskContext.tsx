@@ -1,16 +1,16 @@
 import React, { createContext, useContext, useRef, useState } from "react";
 import { Animated } from "react-native";
-import { TOP_PAD, BOTTOM_PAD } from "../components/config/sliderConfig";
+import { BOTTOM_PAD, TOP_PAD } from "../components/config/sliderConfig";
 import { GRADES } from "../data/grades";
 
 type MaskCtx = {
   fullH: number;
   blueH: Animated.Animated;
   blueTop: Animated.Animated;
-  blueY: Animated.Value; // ← Animated, ne number!
+  blueY: Animated.Value;
   setFullH: (h: number) => void;
-  setBlueY: (y: number) => void; // blueY.setValue(y)
-  anim: Animated.Value; // tas pats, kurį naudoja slideris
+  setBlueY: (y: number) => void;
+  anim: Animated.Value;
 };
 
 const Ctx = createContext<MaskCtx | null>(null);
@@ -37,7 +37,7 @@ export const MaskProvider: React.FC<{ children: React.ReactNode }> = ({
   const usableH = Math.max(fullH - TOP_PAD - BOTTOM_PAD, 1);
   const blueH = Animated.add(Animated.multiply(anim, usableH), BOTTOM_PAD);
 
-  /** viršus viršutiniams komponentams (jei reikia) */
+  /** viršus viršutiniams komponentams*/
   const blueTop = Animated.subtract(new Animated.Value(0), blueH);
 
   return (

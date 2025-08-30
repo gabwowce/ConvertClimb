@@ -1,18 +1,17 @@
 import React from "react";
-import { View, Text, Pressable, StyleSheet, Animated } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Animated, Pressable, StyleSheet, View } from "react-native";
 import { Grade } from "../data/grades";
 import { valueFor } from "../hooks/useGradeValue";
 import MaskedText from "./MaskedText";
 
-import { TXTSM } from "./config/textSize";
 import { getLetterSpacing } from "../helpers/getLetterSpacing";
+import { TXTSM } from "./config/textSize";
 
 type Props = {
   grade: Grade;
   topLabel: string;
   bottomLabel: string;
-  blueH: Animated.Animated; // tas pats Animated.add(...)
+  blueH: Animated.Animated;
   onPickTop: () => void;
   onPickBottom: () => void;
   onPressTopDifficulty: () => void;
@@ -31,13 +30,10 @@ export default function GradeCard({
   onPressBottomDifficulty,
 }: Props) {
   return (
-    <View style={s.card}>
-      {/* VIRŠUS */}
-      <View style={s.block}>
+    <View style={styles.card}>
+      <View style={styles.block}>
         <Pressable onPress={onPickTop}>
-          <View style={s.row}>
-            {/* <Text style={s.label}>{topLabel}</Text> */}
-
+          <View style={styles.row}>
             <MaskedText
               text={topLabel}
               blueH={blueH}
@@ -45,7 +41,7 @@ export default function GradeCard({
                 fontSize: TXTSM,
                 letterSpacing: getLetterSpacing(TXTSM),
                 fontFamily: "Coolvetica",
-              }} // per propsus
+              }}
             />
 
             <MaskedText
@@ -63,12 +59,9 @@ export default function GradeCard({
         </Pressable>
       </View>
 
-      {/* APAČIA */}
-      <View style={s.block}>
+      <View style={styles.block}>
         <Pressable onPress={onPickBottom}>
-          <View style={s.row}>
-            {/* <Text style={s.label}>{bottomLabel}</Text> */}
-
+          <View style={styles.row}>
             <MaskedText
               text={bottomLabel}
               blueH={blueH}
@@ -76,7 +69,7 @@ export default function GradeCard({
                 fontSize: TXTSM,
                 letterSpacing: getLetterSpacing(TXTSM),
                 fontFamily: "Coolvetica",
-              }} // per propsus
+              }}
             />
 
             <MaskedText
@@ -97,7 +90,7 @@ export default function GradeCard({
   );
 }
 
-const s = StyleSheet.create({
+const styles = StyleSheet.create({
   card: {
     alignItems: "flex-end",
     justifyContent: "center",

@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
-  View,
-  StyleSheet,
   Animated,
-  TouchableWithoutFeedback,
-  View as RNView,
   Dimensions,
+  View as RNView,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
 } from "react-native";
 import {
   SafeAreaView,
@@ -13,17 +13,16 @@ import {
 } from "react-native-safe-area-context";
 
 import BackgroundLines from "../components/BackgroundLines";
-import VerticalSlider from "../components/VerticalSlider";
 import GradeCard from "../components/GradeCard";
 import GradeModalController from "../components/GradeModalController";
 
-import { GRADES } from "../data/grades";
+import { BOTTOM_PAD, TOP_PAD } from "../components/config/sliderConfig";
+import VerticalSlider from "../components/VerticalSlider";
 import { useApp } from "../context/AppContext";
+import { GRADES } from "../data/grades";
 import { useHorizontalPad } from "../hooks/useHorizontalPad";
-import { TOP_PAD, BOTTOM_PAD } from "../components/config/sliderConfig";
 
 export default function HomeScreen() {
-  /* --- konteksto duomenys --- */
   const {
     gradeIdx,
     topSystem,
@@ -34,23 +33,12 @@ export default function HomeScreen() {
     anim,
   } = useApp();
 
-  /* --- bendrinama animacija --- */
-  // const anim = useRef(
-  //   new Animated.Value(1 - gradeIdx / (GRADES.length - 1))
-  // ).current;
-
-  // const anim = useRef(
-  //   new Animated.Value(gradeIdx / (GRADES.length - 1))
-  // ).current;
-
-  /* --- matmenys & padėtys --- */
   const insets = useSafeAreaInsets();
   const windowHeight = Dimensions.get("window").height;
   const [fullH, setFullH] = useState(0);
   const usableH = Math.max(windowHeight - TOP_PAD - BOTTOM_PAD, 1);
   const blueH = Animated.add(Animated.multiply(anim, usableH), BOTTOM_PAD);
 
-  /* --- UI --- */
   const padX = useHorizontalPad();
   const grade = React.useMemo(
     () => GRADES.find((g) => g.idx === gradeIdx)!,
@@ -94,7 +82,6 @@ export default function HomeScreen() {
         />
       </View>
 
-      {/* Kortelė */}
       <GradeCard
         grade={grade}
         topLabel={topSystem}

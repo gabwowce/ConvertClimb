@@ -1,24 +1,15 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, {
   createContext,
+  ReactNode,
   useContext,
+  useEffect,
   useRef,
   useState,
-  useEffect,
-  ReactNode,
 } from "react";
 import { Animated, InteractionManager } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GRADES } from "../data/grades";
 
-/**
- * ▸ KODAS PERRAŠYTAS 2025‑07‑20
- *   – animacija per „cold‑start" dabar ANIMUOJASI,
- *     o ne šoka iškart į galutinę padėtį.
- *   – pradinė `anim` reikšmė = 0 (mėlynas dugnas),
- *     po bootstrapo paleidžiam `Animated.timing` → sklandus perėjimas.
- */
-
-// —— types ————————————————————————————————————————————————————————
 export type ModalType = "grade" | "top" | "bottom" | "gradeBottom" | null;
 
 export interface GradeCtx {
@@ -37,26 +28,21 @@ export interface GradeCtx {
   anim: Animated.Value;
 }
 
-// —— constants ——————————————————————————————————————————————————————
 const STORAGE_KEY = "@climb-app:prefs";
 const Ctx = createContext<GradeCtx | undefined>(undefined);
 
-// —— helper ———————————————————————————————————————————————————————-
 const idxToAnim = (idx: number) => 1 - idx / (GRADES.length - 1);
 
-// —— provider ———————————————————————————————————————————————————————
 export function AppProvider({ children }: { children: ReactNode }) {
-  /* 1️⃣  STATE */
   const [gradeIdx, setGradeIdx] = useState(32);
   const [topSystem, setTopSystem] = useState("YDS");
   const [bottomSystem, setBottomSystem] = useState("French");
   const [modal, setModal] = useState<ModalType>(null);
   const [bootstrapped, setBootstrapped] = useState(false);
 
-  /* 2️⃣  ANIM (pradžiai 0 = mėlyna apačia) */
+  /* ANIM (pradžiai 0 = mėlyna apačia) */
   const anim = useRef(new Animated.Value(0)).current;
 
-  /* 3️⃣  LOAD PERSISTED */
   useEffect(() => {
     (async () => {
       try {
@@ -73,10 +59,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         setBootstrapped(true);
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /* 3b️⃣  PERSIST ON CHANGE */
   useEffect(() => {
     if (!bootstrapped) return;
     AsyncStorage.setItem(
@@ -85,7 +69,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
     ).catch((e) => console.warn("Failed to persist preferences", e));
   }, [bootstrapped, gradeIdx, topSystem, bottomSystem]);
 
-  /* 3c️⃣  KICK ANIM after first mount */
   useEffect(() => {
     if (!bootstrapped) return;
     const target = idxToAnim(gradeIdx);
@@ -99,7 +82,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return () => task.cancel?.();
   }, [bootstrapped]);
 
-  /* 4️⃣   HELPER (set index + anim) */
   const setGradeAndSyncAnim = (idx: number, animated = false) => {
     setGradeIdx(idx);
     const val = idxToAnim(idx);
@@ -114,12 +96,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  /* 5️⃣  STEP */
   const stepUp = () => setGradeAndSyncAnim(Math.max(0, gradeIdx - 1), true);
   const stepDown = () =>
     setGradeAndSyncAnim(Math.min(GRADES.length - 1, gradeIdx + 1), true);
 
-  /* 6️⃣  MODAL */
   const openModal = (w: ModalType) => setModal(w);
   const closeModal = () => setModal(null);
 
@@ -148,7 +128,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// —— hook ————————————————————————————————————————————————————————
 export function useApp() {
   const ctx = useContext(Ctx);
   if (!ctx) throw new Error("useApp must be used inside <AppProvider>");

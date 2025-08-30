@@ -1,20 +1,19 @@
 import React, { ReactNode } from "react";
 import {
   Modal,
-  View,
-  StyleSheet,
   Pressable,
   SafeAreaView,
-  StyleProp,
-  ViewStyle,
   ScrollView,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
 } from "react-native";
 
 type Props = {
   visible: boolean;
   onClose: () => void;
   children: ReactNode;
-  /** leidžiam perduoti papildomą stilių lapeliui */
   contentStyle?: StyleProp<ViewStyle>;
 };
 

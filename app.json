@@ -1,56 +1,56 @@
 {
-  "expo": {
-    "name": "ConvertClimb",
-    "slug": "ConvertClimb",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/blank.png",
-    "userInterfaceStyle": "light",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/blank.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/blank.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true,
-      "package": "com.gabwowce.ConvertClimb"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      [
-        "expo-font",
-        {
-          "fonts": [
-            "./assets/fonts/coolvetica_rg.ttf"
-          ]
-        }
-      ],
-      [
-        "expo-splash-screen",
-        {
-          "backgroundColor": "#ffffff",
-          "image": "./assets/blank.png",
-          "resizeMode": "contain",
-          "android": { "image": "./assets/blank.png" },
-          "ios":     { "image": "./assets/blank.png" }
-        }
-      ]
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "ea70aeec-6e63-4cd7-819a-32fecaa444b4"
-      }
-    },
-    "owner": "gabwowce"
-  }
+    "expo": {
+        "name": "Gradiator",
+        "slug": "gradiator",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/app-logo.png",
+        "userInterfaceStyle": "light",
+        "newArchEnabled": true,
+        "splash": {
+            "image": "./assets/blank.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "ios": {
+            "supportsTablet": true
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/blank.png",
+                "backgroundColor": "#ffffff"
+            },
+            "edgeToEdgeEnabled": true,
+            "package": "com.gabwowce.gradiator"
+        },
+        "web": {
+            "favicon": "./assets/app-logo.png"
+        },
+        "plugins": [
+            [
+                "expo-font",
+                {
+                    "fonts": [
+                        "./assets/fonts/coolvetica_rg.ttf"
+                    ]
+                }
+            ],
+            [
+                "expo-splash-screen",
+                {
+                    "backgroundColor": "#ffffff",
+                    "image": "./assets/blank.png",
+                    "resizeMode": "contain",
+                    "android": { "image": "./assets/blank.png" },
+                    "ios": { "image": "./assets/blank.png" }
+                }
+            ]
+        ],
+        "extra": {
+            "eas": {
+                "projectId": "ea70aeec-6e63-4cd7-819a-32fecaa444b4"
+            }
+        },
+        "owner": "gabwowce"
+    }
 }

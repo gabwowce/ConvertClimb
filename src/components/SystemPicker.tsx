@@ -1,10 +1,10 @@
 import React from "react";
-import { View, Text, Pressable, StyleSheet } from "react-native";
-import FullScreenModal from "./FullScreenModal";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SYSTEMS } from "../data/systems";
+import { getLetterSpacing } from "../helpers/getLetterSpacing";
 import BackgroundLines from "./BackgroundLines";
 import { TITLE, TXT } from "./config/textSize";
-import { getLetterSpacing } from "../helpers/getLetterSpacing";
+import FullScreenModal from "./FullScreenModal";
 
 type Props = {
   visible: boolean;
@@ -24,9 +24,7 @@ export default function SystemPicker({
     <FullScreenModal visible={visible} onClose={onClose}>
       <Pressable style={{ flex: 1 }} onPress={onClose}>
         <BackgroundLines />
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
+        <View style={styles.view}>
           <Text style={styles.title}>Choose grading system</Text>
 
           {availableSystems.map((s) => (
@@ -60,5 +58,10 @@ const styles = StyleSheet.create({
     color: "#1A18BA",
     fontFamily: "CoolveticaBold",
     height: 48,
+  },
+  view: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

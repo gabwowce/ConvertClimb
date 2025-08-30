@@ -1,26 +1,20 @@
 import React from "react";
 import {
-  View,
-  Text,
-  Pressable,
-  TouchableWithoutFeedback,
-  StyleSheet,
   Dimensions,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
 } from "react-native";
-import FullScreenModal from "./FullScreenModal";
+import { useApp } from "../context/AppContext";
 import { GRADES } from "../data/grades";
+import { getLetterSpacing } from "../helpers/getLetterSpacing";
 import { valueFor } from "../hooks/useGradeValue";
 import { useHorizontalPad } from "../hooks/useHorizontalPad";
 import BackgroundLines from "./BackgroundLines";
-import { useApp } from "../context/AppContext";
 import { TITLE, TXT } from "./config/textSize";
-import { getLetterSpacing } from "../helpers/getLetterSpacing";
-
-/**
- * A full, self‑contained picker for climbing grade difficulty.
- * – Updates grade via context and sync animation.
- * – Calculates correct grid width so the block is perfectly centred.
- */
+import FullScreenModal from "./FullScreenModal";
 
 type Props = {
   visible: boolean;
@@ -30,7 +24,7 @@ type Props = {
   onClose: () => void;
 };
 
-const GAP = 8; // visual gap in px
+const GAP = 8;
 
 export default function DifficultyPicker({
   visible,
@@ -42,16 +36,13 @@ export default function DifficultyPicker({
   const padX = useHorizontalPad();
   const { setGradeAndSyncAnim } = useApp();
 
-  /* 1️⃣ Columns depend on grade system */
   const COLS = system === "Polish" ? 4 : 5;
 
-  /* 2️⃣ Calculate useful inner width and cell width */
   const screenW = Dimensions.get("window").width;
   const innerW = screenW - padX * 2;
   const cellWidth = Math.floor((innerW - GAP * (COLS - 1)) / COLS);
   const gridW = COLS * cellWidth + (COLS - 1) * GAP;
 
-  /* 3️⃣ Filter out grades not supported by chosen system */
   const availableGrades = React.useMemo(
     () => GRADES.filter((g) => valueFor(system, g) !== "-"),
     [system]
@@ -59,12 +50,10 @@ export default function DifficultyPicker({
 
   return (
     <FullScreenModal visible={visible} onClose={onClose}>
-      {/* Close modal when tapping on the dimmed backdrop */}
       <TouchableWithoutFeedback onPress={onClose}>
         <View style={styles.backdrop} />
       </TouchableWithoutFeedback>
 
-      {/* Main content area – let inner Pressables receive touches */}
       <View style={styles.container} pointerEvents="box-none">
         <BackgroundLines />
 
@@ -82,9 +71,7 @@ export default function DifficultyPicker({
                     styles.cell,
                     {
                       width: cellWidth,
-                      // add right margin except for last column
                       marginRight: (idx + 1) % COLS === 0 ? 0 : GAP,
-                      // add bottom margin except for last row
                       marginBottom:
                         idx < availableGrades.length - COLS ? GAP : 0,
                     },
@@ -92,7 +79,7 @@ export default function DifficultyPicker({
                   android_ripple={{ color: "#1A18BA20" }}
                   onPress={() => {
                     onSelect(g.idx);
-                    setGradeAndSyncAnim?.(g.idx); // optional context sync
+                    setGradeAndSyncAnim?.(g.idx);
                   }}
                 >
                   <View
