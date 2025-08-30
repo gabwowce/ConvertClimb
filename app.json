@@ -41,16 +41,20 @@
                     "backgroundColor": "#ffffff",
                     "image": "./assets/blank.png",
                     "resizeMode": "contain",
-                    "android": { "image": "./assets/blank.png" },
-                    "ios": { "image": "./assets/blank.png" }
+                    "android": {
+                        "image": "./assets/blank.png"
+                    },
+                    "ios": {
+                        "image": "./assets/blank.png"
+                    }
                 }
             ]
         ],
+        "owner": "gabwowce",
         "extra": {
             "eas": {
                 "projectId": "ea70aeec-6e63-4cd7-819a-32fecaa444b4"
             }
-        },
-        "owner": "gabwowce"
+        }
     }
 }
