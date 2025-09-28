@@ -1,7 +1,7 @@
 import LottieView from "lottie-react-native";
 import React from "react";
 import { StatusBar, StyleSheet, View } from "react-native";
-import pvz from "../../assets/animation/climpv6_3s.json";
+import animation from "../../assets/animation/Gradiator splash V1.0.json";
 
 interface Props {
   onFinish: () => void;
@@ -13,7 +13,7 @@ export default function SplashScreen({ onFinish }: Props) {
       <StatusBar hidden />
 
       <LottieView
-        source={pvz}
+        source={animation}
         autoPlay
         loop={false}
         resizeMode="cover"
