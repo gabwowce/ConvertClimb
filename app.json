@@ -1,19 +1,22 @@
 {
     "expo": {
         "name": "Gradiator",
-        "slug": "gradiator",
+        "slug": "ConvertClimb",
         "version": "1.0.0",
         "orientation": "portrait",
         "icon": "./assets/app-logo.png",
         "userInterfaceStyle": "light",
         "newArchEnabled": true,
         "splash": {
-            "image": "./assets/blank.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
+            "backgroundColor": "#ffffff",
+            "resizeMode": "contain"
         },
         "ios": {
-            "supportsTablet": true
+            "supportsTablet": true,
+            "bundleIdentifier": "com.gabwowce.gradiator",
+            "infoPlist": {
+                "ITSAppUsesNonExemptEncryption": false
+            }
         },
         "android": {
             "adaptiveIcon": {
@@ -39,14 +42,7 @@
                 "expo-splash-screen",
                 {
                     "backgroundColor": "#ffffff",
-                    "image": "./assets/blank.png",
-                    "resizeMode": "contain",
-                    "android": {
-                        "image": "./assets/blank.png"
-                    },
-                    "ios": {
-                        "image": "./assets/blank.png"
-                    }
+                    "resizeMode": "contain"
                 }
             ]
         ],

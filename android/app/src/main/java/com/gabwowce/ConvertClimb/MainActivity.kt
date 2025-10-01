@@ -1,4 +1,4 @@
-package com.gabwowce.ConvertClimb
+package com.gabwowce.gradiator
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build
