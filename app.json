@@ -1,7 +1,7 @@
 {
     "expo": {
         "name": "Gradiator",
-        "slug": "ConvertClimb",
+        "slug": "Gradiator",
         "version": "1.0.0",
         "orientation": "portrait",
         "icon": "./assets/app-logo.png",
