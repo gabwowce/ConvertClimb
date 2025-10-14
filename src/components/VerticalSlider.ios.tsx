@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   thumb: {
     position: "absolute",
     alignSelf: "flex-start",
-    marginLeft: 50,
+    marginLeft: 24,
     width: THUMB,
     height: THUMB,
     borderRadius: R,
