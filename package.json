@@ -9,9 +9,9 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^2.2.0",
+    "@react-native-async-storage/async-storage": "2.2.0",
     "@react-native-community/slider": "5.0.1",
-    "@react-native-masked-view/masked-view": "^0.3.2",
+    "@react-native-masked-view/masked-view": "0.3.2",
     "expo": "^54.0.13",
     "expo-file-system": "~19.0.17",
     "expo-font": "~14.0.9",
@@ -21,7 +21,8 @@
     "react": "19.1.0",
     "react-native": "0.81.5",
     "react-native-safe-area-context": "~5.6.0",
-    "react-native-size-matters": "^0.4.2"
+    "react-native-size-matters": "^0.4.2",
+    "undefined": "\\"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

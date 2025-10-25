@@ -55,7 +55,6 @@ def legacyNativeModulesGradle = providers.exec {
   commandLine(
     "node",
     "--print",
-    // naujas kelias RN pakete
     "require.resolve('react-native/cli-platform-android/native_modules.gradle')"
   )
 }.standardOutput.asText.get().trim()
@@ -64,6 +63,5 @@ if (file(legacyNativeModulesGradle).exists()) {
   apply from: legacyNativeModulesGradle
   applyNativeModulesSettingsGradle(settings)
 } else {
-  logger.lifecycle("⚠️  native_modules.gradle nerastas: " + legacyNativeModulesGradle)
+  logger.lifecycle("⚠️ native_modules.gradle nerastas: " + legacyNativeModulesGradle)
 }
-// -------------------------------------------------------------------------
