@@ -49,9 +49,21 @@ expoAutolinking.useExpoVersionCatalog()
 rootProject.name = "Gradiator"
 include(":app")
 
-// ---- Fallback: įjungiam seną RN CLI autolinking'ą ----
-// Kai kurie paketai (pvz. async-storage, masked-view, slider, lottie, safe-area-context)
-// EAS’e kartais nebūna įtraukti, todėl priverstinai įtraukiame legacy autolinking.
-apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
-applyNativeModulesSettingsGradle(settings)
-// ------------------------------------------------------
+// ---- Fallback: legacy RN CLI autolinking (RN ≥ 0.75 kelias pasikeitė) ----
+def legacyNativeModulesGradle = providers.exec {
+  workingDir(rootDir)
+  commandLine(
+    "node",
+    "--print",
+    // naujas kelias RN pakete
+    "require.resolve('react-native/cli-platform-android/native_modules.gradle')"
+  )
+}.standardOutput.asText.get().trim()
+
+if (file(legacyNativeModulesGradle).exists()) {
+  apply from: legacyNativeModulesGradle
+  applyNativeModulesSettingsGradle(settings)
+} else {
+  logger.lifecycle("⚠️  native_modules.gradle nerastas: " + legacyNativeModulesGradle)
+}
+// -------------------------------------------------------------------------
