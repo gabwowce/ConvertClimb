@@ -87,7 +87,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.gabwowce.gradiator"
+    namespace 'com.gabwowce.gradiator'
     defaultConfig {
         applicationId 'com.gabwowce.gradiator'
         minSdkVersion rootProject.ext.minSdkVersion
