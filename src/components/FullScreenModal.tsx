@@ -2,13 +2,14 @@ import React, { ReactNode } from "react";
 import {
   Modal,
   Pressable,
-  SafeAreaView,
   ScrollView,
   StyleProp,
   StyleSheet,
   View,
   ViewStyle,
 } from "react-native";
+
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type Props = {
   visible: boolean;

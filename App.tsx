@@ -3,17 +3,27 @@ import React, { useRef, useState } from "react";
 import { Animated, StyleSheet } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+// import * as SplashScreenExpo from "expo-splash-screen";
 import { AppProvider } from "./src/context/AppContext";
 import { MaskProvider } from "./src/context/MaskContext";
 import { useGlobalFonts } from "./src/hooks/useGlobalFonts";
 import HomeScreen from "./src/screens/HomeScreen";
 import SplashScreen from "./src/screens/SplashScreen";
 
+// SplashScreenExpo.preventAutoHideAsync();
+
 export default function App() {
   const fontsLoaded = useGlobalFonts();
   const [splashFinished, setSplashFinished] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
   const slideAnim = useRef(new Animated.Value(0)).current;
+
+  // useEffect(() => {
+  //   if (fontsLoaded) {
+  //     // Hide Expo's splash screen immediately when fonts are loaded
+  //     SplashScreenExpo.hideAsync();
+  //   }
+  // }, [fontsLoaded]);
 
   const handleSplashFinish = () => {
     setSplashFinished(true);

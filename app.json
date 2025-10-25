@@ -4,30 +4,26 @@
         "slug": "ConvertClimb",
         "version": "1.0.0",
         "orientation": "default",
-        "icon": "./assets/app-logo.png",
         "userInterfaceStyle": "light",
         "newArchEnabled": true,
-        "splash": {
-            "image": "./assets/blank.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
-        },
         "ios": {
             "supportsTablet": true,
             "bundleIdentifier": "com.gabwowce.gradiator",
             "infoPlist": {
                 "ITSAppUsesNonExemptEncryption": false
+            },
+            "icon":{
+                "light": "./assets/icons/ios-light.png"
             }
         },
         "android": {
             "adaptiveIcon": {
-                "foregroundImage": "./assets/app-logo.png",
+                "foregroundImage": "./assets/icons/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
             },
             "edgeToEdgeEnabled": true,
             "softwareKeyboardLayoutMode": "pan",
             "package": "com.gabwowce.gradiator",
-            "statusBarStyle": "dark"
         },
         "web": {
             "favicon": "./assets/app-logo.png"
