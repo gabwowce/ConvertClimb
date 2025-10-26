@@ -77,3 +77,4 @@ yarn-error.*
 *.tsbuildinfo
 
 # @end expo-cliinspect-android.zip
+inspect-android.zip
