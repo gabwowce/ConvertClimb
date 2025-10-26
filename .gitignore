@@ -1,5 +1,15 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
+# Android build outputs
+android/app/build/
+android/build/
+*.apk
+*.aab
+
+# Signing & local-only
+android/app/*.jks
+android/local.properties
+
 # dependencies
 node_modules/
 

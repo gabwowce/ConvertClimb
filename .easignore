@@ -1,14 +1,12 @@
-# Bendros šiukšlės
+
 node_modules/
 *.log
 .DS_Store
 
-# Expo / web
 .expo/
 dist/
 web-build/
 
-# Android / iOS build output
 android/.gradle/
 android/.cxx/
 android/build/
@@ -20,7 +18,7 @@ ios/Pods/
 ios/*.xcworkspace
 ios/DerivedData/
 
-# Lokaliniai/env/privatūs
+
 .env*
 *.keystore
 *.jks
@@ -29,6 +27,5 @@ ios/DerivedData/
 *.mobileprovision
 *.key
 
-# Į archyvą nereikia
 *.zip
 inspect-android.zip
